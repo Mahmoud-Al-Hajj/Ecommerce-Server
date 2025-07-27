@@ -16,8 +16,13 @@ class OrdersPerHourFactory extends Factory
      */
     public function definition(): array
     {
-        return [
-            //
+        $faker = \Faker\Factory::create('en_US');
+
+         return [
+            'date' => date('Y-m-d'),
+            'time' => $faker->date(),
+            'order_count' => $faker->numberBetween(0, 50),
+            'revenue' => $faker->randomFloat(2, 100, 10000),
         ];
     }
 }
