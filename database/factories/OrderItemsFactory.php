@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +18,13 @@ class OrderItemsFactory extends Factory
      */
     public function definition(): array
     {
-        return [
-            //
+       $faker = \Faker\Factory::create('en_US');
+    return [
+              'order_id' => Order::factory(),
+            'product_id' => Product::factory(),
+            'quantity' => $faker->numberBetween(1, 50),
+            'price' => $faker->randomFloat(2, 5, 100),
+            'item_size' => $faker->randomElement(['S', 'M', 'L', 'XL', 'XXL']),
         ];
     }
 }
