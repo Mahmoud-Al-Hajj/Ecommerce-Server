@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\ProductCategories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +17,12 @@ class ImagesFactory extends Factory
      */
     public function definition(): array
     {
+           $faker = \Faker\Factory::create('en_US');
+
         return [
-            //
+            'category_id' => ProductCategories::factory(),
+            'image_url' => $faker->imageUrl(),
+            'is_thumbnail' => $faker->boolean(true),
         ];
     }
 }

@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AuditLogs extends Model
+class ProductImage extends Model
 {
-    /** @use HasFactory<\Database\Factories\AuditLogsFactory> */
+    /** @use HasFactory<\Database\Factories\ImagesFactory> */
     use HasFactory;
 }

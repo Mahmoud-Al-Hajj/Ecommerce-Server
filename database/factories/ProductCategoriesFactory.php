@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\WebhookLogs>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ProductCategories>
  */
-class WebhookLogsFactory extends Factory
+class ProductCategoriesFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -16,8 +16,10 @@ class WebhookLogsFactory extends Factory
      */
     public function definition(): array
     {
+        $faker = \Faker\Factory::create('en_US');
+
         return [
-            //
+            'name' => $faker->word(),
         ];
     }
 }
