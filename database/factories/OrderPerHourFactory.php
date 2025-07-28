@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\OrdersPerHour>
  */
-class OrdersPerHourFactory extends Factory
+class OrderPerHourFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -20,7 +20,7 @@ class OrdersPerHourFactory extends Factory
 
          return [
             'date' => date('Y-m-d'),
-            'time' => $faker->date(),
+            'time' => $faker->time('H:i:s'),
             'order_count' => $faker->numberBetween(0, 50),
             'revenue' => $faker->randomFloat(2, 100, 10000),
         ];

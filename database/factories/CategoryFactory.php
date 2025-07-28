@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ProductCategories>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Category>
  */
-class ProductCategoriesFactory extends Factory
+class CategoryFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,9 +17,8 @@ class ProductCategoriesFactory extends Factory
     public function definition(): array
     {
         $faker = \Faker\Factory::create('en_US');
-
         return [
-            'name' => $faker->word(),
+            'name' => $faker->words(2, true),
         ];
     }
 }

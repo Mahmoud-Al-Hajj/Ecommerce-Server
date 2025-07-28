@@ -3,12 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\Product;
-use App\Models\ProductCategories;
 use App\Models\ProductSize;
 use App\Models\ProductImage;
-
-
-
+use App\Models\Category;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
@@ -19,11 +16,10 @@ class ProductsSeeder extends Seeder
     */
     public function run(): void{
 
-                Product::factory(50)->create();
-                ProductCategories::factory(5)->create();
+                Category::factory(5)->create();
+                Product::factory(30)->create();
                 ProductSize::factory(5)->create();
-                ProductImage::factory(50)->create();
-
+                ProductImage::factory(30)->create();
 
 
     }

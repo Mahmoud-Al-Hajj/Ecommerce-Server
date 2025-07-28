@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('item_size');
             $table->timestamps();
     });
-    Schema::create('orders_per_hours', function (Blueprint $table) {
+    Schema::create('order_per_hours', function (Blueprint $table) {
         $table->id();
         $table->date('date');
         $table->time('time');
@@ -45,5 +45,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('orders');
+        Schema::dropIfExists('order_items');
+        Schema::dropIfExists('order_per_hours');
     }
 };
