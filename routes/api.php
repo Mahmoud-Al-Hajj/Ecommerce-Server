@@ -3,6 +3,26 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+use App\Http\Controllers\Common\AuthController;
+use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\WebhookLogsController;
+use App\Http\Controllers\OrdersController;
+use App\Http\Controllers\ProductCategoriesController;
+
+Route::get("/products", [ProductsController::class, "getAllProducts"]);
+Route::get("/products/{id}", [ProductsController::class, "getProductById"]);
+Route::post("/createProduct", [ProductsController::class, "createProduct"]);
+Route::post("/updateProduct/{id}", [ProductsController::class, "updateProduct"]);
+Route::delete("/deleteProduct/{id}", [ProductsController::class, "deleteProduct"]);
+Route::get("/orders", [OrdersController::class, "myOrders"]);
+
+Route::post("/webhook", [WebhookLogsController::class, "WebhookLogs"]);
+
+
+
+
+Route::post("/register", [AuthController::class, "register"]);
+Route::post("/login", [AuthController::class, "login"]);
+Route::post("/logout", [AuthController::class, "logout"]);
+
+

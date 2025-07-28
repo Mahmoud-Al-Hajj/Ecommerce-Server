@@ -2,65 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Orders;
+use App\Models\Order;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Request;
 use App\Http\Requests\StoreOrdersRequest;
 use App\Http\Requests\UpdateOrdersRequest;
 
-class OrdersController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
+class OrdersController extends Controller{
+
+public function checkout(Request $request) {
+        // Handle customer order checkout
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+    public function myOrders(Request $request) {
+        // Authenticated user: get their own orders
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreOrdersRequest $request)
-    {
-        //
+    public function orderStatus($orderId) {
+        // Return status for specific order (real-time updates)
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Orders $orders)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Orders $orders)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateOrdersRequest $request, Orders $orders)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Orders $orders)
-    {
-        //
-    }
 }

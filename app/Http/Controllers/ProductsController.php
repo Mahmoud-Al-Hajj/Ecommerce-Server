@@ -2,65 +2,34 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Models\Product;
-use App\Http\Requests\StoreProductsRequest;
-use App\Http\Requests\UpdateProductsRequest;
+use App\Services\User\ProductService;
+use Illuminate\Http\Request;
 
-class ProductsController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
+class ProductsController extends Controller{
+
+    function getAllProducts(){
+        $products = ProductService::getAllProducts();
+        return $this->ResponseJSON($products, 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+    function getProductById($id){
+        $product = ProductService::getProductById($id);
+        return $this->ResponseJSON($product, 200);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreProductsRequest $request)
-    {
-        //
+    function createProduct(Request $request){
+        $product = ProductService::createProduct($request);
+        return $this->ResponseJSON($product, 200);
+    }
+    function updateProduct($id, Request $request){
+        $product = ProductService::updateProduct($id, $request);
+        return $this->ResponseJSON($product, 200);
+    }
+    function deleteProduct($id){
+        $product = ProductService::deleteProduct($id);
+        return $this->ResponseJSON($product, 200);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Product $products)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Product $products)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateProductsRequest $request, Product $products)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Product $products)
-    {
-        //
-    }
 }
