@@ -2,13 +2,13 @@
 
 namespace Database\Factories;
 
-use App\Models\ProductCategories;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Images>
  */
-class ImagesFactory extends Factory
+class ProductImageFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -20,7 +20,7 @@ class ImagesFactory extends Factory
            $faker = \Faker\Factory::create('en_US');
 
         return [
-            'category_id' => ProductCategories::factory(),
+            'product_id' => Product::factory(),
             'image_url' => $faker->imageUrl(),
             'is_thumbnail' => $faker->boolean(true),
         ];

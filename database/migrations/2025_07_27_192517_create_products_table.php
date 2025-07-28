@@ -11,12 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::create('categories', function (Blueprint $table) {
+    $table->id();
+    $table->string('name')->unique();
+    $table->timestamps();
+        });
+
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('description')->nullable();
             $table->double('price');
-            $table->foreignId('category_id')->constrained()->onDelete('cascade');
+            $table->foreignId('category_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->string('product_gender');
             $table->string('quantity');
             $table->boolean('visible');
@@ -39,11 +45,6 @@ return new class extends Migration
     $table->timestamps();
 });
 
-Schema::create('product_categories', function (Blueprint $table) {
-    $table->id();
-    $table->string('name')->unique();
-    $table->timestamps();
-});
 
 }
 
