@@ -2,12 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\WebhookLogs;
+use App\Models\WebhookLog;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Request;
 use App\Http\Requests\StoreWebhookLogsRequest;
 use App\Http\Requests\UpdateWebhookLogsRequest;
+use App\Services\WebhookService;
 
 class WebhookLogsController extends Controller
 {
+
+    public function handle(Request $request){
+        $webhook = WebhookService::process($request);
+        return $this->responseJSON($webhook,200);
+
+    }
+
+
     /**
      * Display a listing of the resource.
      */
@@ -35,7 +46,7 @@ class WebhookLogsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(WebhookLogs $webhookLogs)
+    public function show(WebhookLog $webhookLogs)
     {
         //
     }
@@ -43,7 +54,7 @@ class WebhookLogsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(WebhookLogs $webhookLogs)
+    public function edit(WebhookLog $webhookLogs)
     {
         //
     }
@@ -51,7 +62,7 @@ class WebhookLogsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateWebhookLogsRequest $request, WebhookLogs $webhookLogs)
+    public function update(UpdateWebhookLogsRequest $request, WebhookLog $webhookLogs)
     {
         //
     }
@@ -59,7 +70,7 @@ class WebhookLogsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(WebhookLogs $webhookLogs)
+    public function destroy(WebhookLog $webhookLogs)
     {
         //
     }
