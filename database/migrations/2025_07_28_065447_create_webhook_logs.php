@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('webhook_logs', function (Blueprint $table) {
             $table->id();
+            $table->string('event_type');
+            $table->json('payload');
             $table->timestamps();
         });
     }
