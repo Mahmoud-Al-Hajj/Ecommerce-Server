@@ -5,8 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
-{
+class Product extends Model{
     /** @use HasFactory<\Database\Factories\ProductsFactory> */
     use HasFactory;
+
+    public function images(){
+        return $this->hasMany(ProductImage::class);
+    }
+
+    public function sizes(){
+        return $this->hasMany(ProductSize::class);
+    }
+    public function category(){
+        return $this->belongsTo(Category::class);
+    }
+
 }
