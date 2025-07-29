@@ -32,6 +32,5 @@ class ProductsController extends Controller{
         $product = ProductService::deleteProduct($id);
         return $this->ResponseJSON($product, 200);
     }
-    //this is a test
 
 }
