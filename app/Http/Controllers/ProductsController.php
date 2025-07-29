@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Services\User\ProductService;
 use Illuminate\Http\Request;
-
 class ProductsController extends Controller{
 
     function getAllProducts(){
@@ -25,7 +24,7 @@ class ProductsController extends Controller{
     }
 
     function updateProduct($id, Request $request){
-        $product = ProductService::updateProduct($id, $request);
+        $product = ProductService::updateProduct($request, $id);
         return $this->ResponseJSON($product, 200);
     }
 

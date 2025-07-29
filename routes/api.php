@@ -10,7 +10,7 @@ use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\ProductCategoriesController;
 
 Route::get("/products", [ProductsController::class, "getAllProducts"]);
-Route::get("/products/{id}", [ProductsController::class, "getProductById"]);
+Route::get("/product/{id}", [ProductsController::class, "getProductById"]);
 Route::post("/createProduct", [ProductsController::class, "createProduct"]);
 Route::post("/updateProduct/{id}", [ProductsController::class, "updateProduct"]);
 Route::delete("/deleteProduct/{id}", [ProductsController::class, "deleteProduct"]);

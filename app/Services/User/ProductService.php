@@ -5,7 +5,7 @@ namespace App\Services\User;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Services\Common\Base64ConverterService;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 
 class ProductService{
 
@@ -15,7 +15,7 @@ class ProductService{
     }
 
     public static function getProductById($id){
-        return Product::findOrFail($id);
+        return Product::with('images')->findOrFail($id);
     }
 
     public static function createProduct($request){
@@ -39,23 +39,38 @@ class ProductService{
             $image->save();
         }
     }
-        return $product;
+        return $product->load('images');
     }
 
     public static function updateProduct(Request $request, $id){
-    $product = Product::findOrFail($id);
 
+        $product = Product::findOrFail($id);
         $product->name = $request["name"] ?? $product->name;
         $product->price = $request["price"] ?? $product->price;
         $product->quantity = $request["quantity"] ?? $product->quantity;
         $product->description = $request["description"] ?? $product->description;
         $product->category_id = $request["category_id"] ?? $product->category_id;
+        $product->product_gender = $request["product_gender"] ?? $product->product_gender;
+        $product->visible = $request["visible"] ?? $product->visible;
         $product->save();
-        return $product;
+        if (!empty($request['images']) && is_array($request['images'])) {
+            ProductImage::where('product_id', $product->id)->delete();
+            foreach ($request['images'] as $img) {
+                $url = Base64ConverterService::base64ToImage($img['image_url']);
+                $image = new ProductImage;
+                $image->product_id = $product->id;
+                $image->image_url = $url;
+                $image->is_thumbnail = $img['is_thumbnail'] ?? false;
+                $image->save();
+            }
+        }
+        return $product->load('images');
     }
 
     public static function deleteProduct($id){
         Product::findOrFail($id)->delete();
-        return ["status" => "success"];
+        return ["status" => "success, deleted product"];
     }
+
+
 }
