@@ -8,5 +8,4 @@ use App\Http\Requests\UpdateOrdersPerHourRequest;
 
 class OrdersPerHourController extends Controller{
 
-
 }
