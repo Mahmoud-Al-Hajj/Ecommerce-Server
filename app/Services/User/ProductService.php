@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Request;
 class ProductService{
 
       public static function getAllProducts(){
-        return Product::all();
+    return Product::with('images')->get();
+
     }
 
     public static function getProductById($id){
