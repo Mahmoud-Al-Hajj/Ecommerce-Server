@@ -13,7 +13,7 @@ class Base64ConverterService{
         $filename = Str::random(10) . '.' . $extension;
 
         Storage::disk('public')->put($filename, base64_decode($content));
-        return Storage::url($filename);
+        return asset(Storage::url($filename));
     }
 
     public static function base64ArrayToImages(array $base64Array){
@@ -36,4 +36,6 @@ class Base64ConverterService{
 
         return self::base64ToImage($input);
     }
+
+
 }

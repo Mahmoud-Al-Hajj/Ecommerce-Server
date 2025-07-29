@@ -23,10 +23,12 @@ class ProductsController extends Controller{
         $product = ProductService::createProduct($request);
         return $this->ResponseJSON($product, 200);
     }
+
     function updateProduct($id, Request $request){
         $product = ProductService::updateProduct($id, $request);
         return $this->ResponseJSON($product, 200);
     }
+
     function deleteProduct($id){
         $product = ProductService::deleteProduct($id);
         return $this->ResponseJSON($product, 200);

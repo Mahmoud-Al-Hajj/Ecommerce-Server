@@ -3,6 +3,8 @@
 namespace App\Services\User;
 
 use App\Models\Order;
+use App\Models\OrderItem;
+
 
 class OrderService{
 
@@ -11,8 +13,7 @@ class OrderService{
     }
     public static function getOrderById($id){
         return Order::with('orderItems')->findOrFail($id);
-        //this will return the order with its items
-        //orderItems is the relationship defined in the Order model
+        //this will return the order with its items (relation defined in Order model)
     }
 
     public static function getOrdersByUserId($userId){
@@ -38,7 +39,18 @@ class OrderService{
 
     public static function deleteOrder($id){
         Order::findOrFail($id)->delete();
-        return ["status" => "success"];
+        return ["status" => "success, deleted order"];
+    }
+
+    public static function addOrderItem($orderId, $itemData){
+        $order = Order::findOrFail($orderId);
+        $orderItem = new OrderItem;
+        $orderItem->order_id = $order->id;
+        $orderItem->product_id = $itemData['product_id'];
+        $orderItem->quantity = $itemData['quantity'];
+        $orderItem->price = $itemData['price'];
+        $orderItem->save();
+        return $orderItem;
     }
 
 }
