@@ -15,14 +15,14 @@ class OrderService{
         return Order::with('items.product')->get();
     }
     public static function getOrderById($id){
-        return Order::with(['user', 'items.product'])->findOrFail($id);
+        return Order::with('user', 'items.product')->findOrFail($id);
     }
 
     public static function getOrdersByUserId($userId){
         return Order::where('user_id', $userId)->with('items.product')->get();
     }
 
-    public static function createOrder($data){
+    public static function createOrder($request){
         $order = new Order;
         $order->user_id = Auth::id() ?? null;
         $order->status = 'Pending';
@@ -31,8 +31,8 @@ class OrderService{
         return $order;
 
         $total = 0;
-        if (!empty($data['items']) && is_array($data['items'])) {
-            foreach ($data['items'] as $item) {
+        if (!empty($request['items']) && is_array($request['items'])) {
+            foreach ($request['items'] as $item) {
                 $product = Product::findOrFail($item['product_id']);
                 $orderItem = new OrderItem;
                 $orderItem->order_id = $order->id;
@@ -52,14 +52,6 @@ class OrderService{
         return $order->load(['items.product']);
     }
 
-
-    // public static function updateOrder($id, $data){
-    //     $order = Order::findOrFail($id);
-    //     $order->status = $data['status'] ?? $order->status;
-    //     $order->total_price = $data['total_price'] ?? $order->total_price;
-    //     $order->save();
-    //     return $order;
-    // }
 
     public static function updateOrderStatus($id, $newStatus){
 //user here is admin
