@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\User\Controllers;
 
 use App\Models\Order;
 use Illuminate\Routing\Controller;

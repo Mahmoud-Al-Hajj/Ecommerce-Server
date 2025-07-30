@@ -4,18 +4,19 @@ namespace App\Services\User;
 
 use App\Models\Product;
 use App\Models\ProductImage;
+use App\Models\ProductSize;
 use App\Services\Common\Base64ConverterService;
 use Illuminate\Http\Request;
 
 class ProductService{
 
       public static function getAllProducts(){
-    return Product::with('images')->get();
+    return Product::where('visible', true)->with('images','sizes')->get();
 
     }
 
     public static function getProductById($id){
-        return Product::with('images')->findOrFail($id);
+        return Product::where('visible', true)->with('images','sizes')->findOrFail($id);
     }
 
     public static function createProduct($request){
@@ -29,16 +30,21 @@ class ProductService{
         $product->visible = $request["visible"] ?? true;
         $product->save();
 
-        if (!empty($request['images']) && is_array($request['images'])) {
+        foreach ($request['sizes'] as $size) {
+            $size = new ProductSize;
+            $size->product_id = $product->id;
+            $size->size = $size['size'];
+            $size->quantity = $sizeData['stock'] ?? 0;
+            $size->save();
+                }
             foreach ($request['images'] as $img) {
-            $url = Base64ConverterService::base64ToImage($img['image_url']);
-            $image = new ProductImage;
-            $image->product_id = $product->id;
-            $image->image_url = $url;
-            $image->is_thumbnail = $img['is_thumbnail'] ?? false;
-            $image->save();
-        }
-    }
+                $url = Base64ConverterService::base64ToImage($img['image_url']);
+                $image = new ProductImage;
+                $image->product_id = $product->id;
+                $image->image_url = $url;
+                $image->is_thumbnail = $img['is_thumbnail'] ?? false;
+                $image->save();
+            }
         return $product->load('images');
     }
 
@@ -53,6 +59,7 @@ class ProductService{
         $product->product_gender = $request["product_gender"] ?? $product->product_gender;
         $product->visible = $request["visible"] ?? $product->visible;
         $product->save();
+
         if (!empty($request['images']) && is_array($request['images'])) {
             ProductImage::where('product_id', $product->id)->delete();
             foreach ($request['images'] as $img) {
@@ -64,13 +71,23 @@ class ProductService{
                 $image->save();
             }
         }
+        if (!empty($request['sizes']) && is_array($request['sizes'])) {
+            ProductSize::where('product_id', $product->id)->delete();
+            foreach ($request['sizes'] as $sizeData) {
+                $size = new ProductSize;
+                $size->product_id = $product->id;
+                $size->size = $sizeData['size'];
+                $size->stock = $sizeData['stock'] ?? 0;
+                $size->save();
+            }
+        }
         return $product->load('images');
     }
 
     public static function deleteProduct($id){
-        Product::findOrFail($id)->delete();
+        $product = Product::findOrFail($id);
+        $product->visible = false;
+        $product->save();
         return ["status" => "success, deleted product"];
     }
-
-
 }
