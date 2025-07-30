@@ -27,8 +27,6 @@ class OrderService{
         $order->user_id = Auth::id() ?? null;
         $order->status = 'Pending';
         $order->total_price = 0;
-        $order->save();
-        return $order;
 
         $total = 0;
         if (!empty($request['items']) && is_array($request['items'])) {
