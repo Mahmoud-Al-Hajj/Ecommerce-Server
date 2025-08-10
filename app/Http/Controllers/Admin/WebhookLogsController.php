@@ -5,16 +5,13 @@ namespace App\Http\Admin\Controllers;
 use App\Models\WebhookLog;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Request;
-use App\Http\Requests\StoreWebhookLogsRequest;
-use App\Http\Requests\UpdateWebhookLogsRequest;
+
 use App\Services\WebhookService;
 
 class WebhookLogsController extends Controller{
 
-    public function WebhookLogs(Request $request){
-        $webhook = WebhookService::process($request);
+    public function WebhookLogs($order){
+        $webhook = WebhookService::MockPost($order);
         return $this->responseJSON($webhook,200);
-
     }
-
 }

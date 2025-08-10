@@ -20,7 +20,7 @@ class OrderItemFactory extends Factory
     {
        $faker = \Faker\Factory::create('en_US');
     return [
-              'order_id' => Order::factory(),
+            'order_id' => Order::factory(),
             'product_id' => Product::factory(),
             'quantity' => $faker->numberBetween(1, 50),
             'price' => $faker->randomFloat(2, 5, 100),

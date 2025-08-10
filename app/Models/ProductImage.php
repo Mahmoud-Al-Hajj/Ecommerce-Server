@@ -9,7 +9,7 @@ class ProductImage extends Model{
     /** @use HasFactory<\Database\Factories\ImagesFactory> */
     use HasFactory;
 
-    // public function product(){
-    //     return $this->belongsTo(Product::class);
-    // }
+    public function product(){
+        return $this->belongsTo(Product::class);
+    }
 }

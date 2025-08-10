@@ -15,7 +15,7 @@ class OrdersSeeder extends Seeder
      */
     public function run(): void
     {
-        Order::factory(50)->has(OrderItem::factory()->count(3))->create();
-        OrderPerHour::factory(24)->create();
+Order::factory(50)->has(OrderItem::factory()->count(3), 'items')->create();
+OrderPerHour::factory(24)->create();
     }
 }

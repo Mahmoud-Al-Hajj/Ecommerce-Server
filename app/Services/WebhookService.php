@@ -3,24 +3,21 @@
 namespace App\Services;
 
 use App\Models\WebhookLog;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Http;
 
-class WebhookService
-{
-    /**
-     * Create a new class instance.
-     */
-       public static function process(Request $request): void
-    {
-        $payload = $request->all();
+class WebhookService{
 
-        $eventType = $payload['event']
-                    ?? $payload['type']
-                    ?? 'unknown';
+    public static function MockPost($order): void{
+        $payload = [
+            'order' => $order->toArray(),
+            'user' => $order->user->toArray(),
+            'items' => $order->items->toArray(),
+        ];
 
-        WebhookLog::create([
-            'event_type' => $eventType,
-            'payload'    => $payload,
-        ]);
+        Http::post('https://meet.google.com/', $payload);
+        $log = new WebhookLog;
+        $log->event_type = 'order_placed';
+        $log->payload = json_encode($payload);
+        $log->save();
     }
 }
