@@ -19,6 +19,7 @@ class User extends Authenticatable implements JWTSubject {
     public function items(){
         return $this->hasMany(OrderItem::class);
     }
+
     /**
      * The attributes that are mass assignable.
      *
@@ -27,6 +28,7 @@ class User extends Authenticatable implements JWTSubject {
     protected $fillable = [
         'name',
         'email',
+        'phone',
         'password',
     ];
 

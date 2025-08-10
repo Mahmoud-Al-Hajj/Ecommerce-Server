@@ -5,8 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class WebhookLog extends Model
-{
+class WebhookLog extends Model{
     /** @use HasFactory<\Database\Factories\WebhookLogsFactory> */
     use HasFactory;
 }

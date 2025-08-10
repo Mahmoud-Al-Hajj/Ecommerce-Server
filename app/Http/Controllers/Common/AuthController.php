@@ -19,10 +19,22 @@ class AuthController extends Controller{
         return $user ? $this->responseJSON($user,200) : $this->responseJSON(null, "error", 401);
     }
 
-    public function register(RegisterRequest $request){
-        $user = AuthService::register($request);
-        return $this->responseJSON($user,200);
+    public function register(RegisterRequest $request) {
+        $response = AuthService::register($request);
+        if (!$response) {
+            return $this->responseJSON(null, "Registration failed", 400);
+        }
+        return $this->responseJSON($response, 201);
+    }
+    public function logout() {
+        $logout= AuthService::logout();
+        return $this->responseJSON($logout,200);
+
     }
 
+    public function getUsersCount() {
+        $count = AuthService::getUsersCount();
+        return $this->responseJSON($count, 200);
+    }
 
 }
